@@ -1,0 +1,25 @@
+{
+  "name": "my-first-node-server",
+  "version": "1.0.0",
+  "description": "first steps in node, following 'The Node Beginner Book' by Manuel Kiessling",
+  "main": "index.js",
+  "dependencies": {
+    "formidable": "^1.0.17",
+    "mustache": "^2.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrLoh/my-first-node-server.git"
+  },
+  "author": "Tobias Lohse",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrLoh/my-first-node-server/issues"
+  },
+  "homepage": "https://github.com/MrLoh/my-first-node-server#readme"
+}
