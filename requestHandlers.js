@@ -4,7 +4,7 @@ const mustache = require('mustache')
 
 const templateDir = "views"
 
-function resondWithTemplate(templatename, respond, vars={}) {
+function respondWithTemplate(templatename, respond, vars={}) {
 	fs.readFile(`${templateDir}/${templatename}.html`, (err, template) => {
 		if( err ) {
 			throw err
@@ -20,14 +20,25 @@ function start(respond) {
 	console.log("request handler '/start' was called.")
 
 	// exec("ls -lah", (error, stdout, stderr) => respond(stdout))
-	resondWithTemplate("index", respond)
+	respondWithTemplate("index", respond)
 }
 
 function upload(respond, data) {
 	console.log("request handler '/upload' was called.")
-	resondWithTemplate("upload", respond, data)
-	// respond(data)
+	respondWithTemplate("upload", respond, data)
+}
+
+function show(respond) {
+	console.log("request handler '/show' was called.")
+	fs.readFile(`${templateDir}/tmp.png`, (err, file) => {
+		if( err ){
+			respond(err, {success: false})
+		} else {
+			respond(file, {contentType: "image/png"})
+		}
+	})
 }
 
 exports.start = start
 exports.upload = upload
+exports.show = show

@@ -8,5 +8,6 @@ var handle = {}
 handle["/"] = requestHandlers.start
 handle["/start"] = requestHandlers.start
 handle["/upload"] = requestHandlers.upload
+handle["/show"] = requestHandlers.show
 
 server.start(1234, route, handle)

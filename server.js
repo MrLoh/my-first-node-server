@@ -1,5 +1,6 @@
 const http = require("http")
 const url = require("url")
+const fs = require("fs")
 const querystring = require("querystring")
 const formidable = require("formidable")
 
@@ -11,7 +12,11 @@ function start(port, route, handle) {
 		function respond(content, {success=true, contentType="text/plain"}={}) {
 			if( success ){
 				response.writeHead(200, {"Content-Type": contentType})
-				response.write(content)
+				if( contentType.split("/")[0] === "image" ){
+					response.write(content, "binary")
+				} else {
+					response.write(content)
+				}
 			} else {
 				response.writeHead(200, {"Content-Type": contentType})
 				response.write(content)
@@ -19,13 +24,14 @@ function start(port, route, handle) {
 			response.end()
 		}
 
-		request.setEncoding("utf8")
-		var data = ""
-		request.addListener("data", (chunk) => {
-			console.log("received data chunk")
-			data += chunk
+		var form = new formidable.IncomingForm()
+		console.log("about to parse file")
+		form.parse(request, (err, data, files) => {
+			if( files.upload ){
+				fs.rename(files.upload.path, "views/tmp.png")
+			}
+			route(handle, respond, pathname, data)
 		})
-		request.addListener("end", () => route(handle, respond, pathname, querystring.parse(data)))
 
 		console.log("")
 	}
@@ -36,3 +42,4 @@ function start(port, route, handle) {
 }
 
 exports.start = start
+

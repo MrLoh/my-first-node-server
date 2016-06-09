@@ -5,10 +5,14 @@
 	<title>NodeJS Tutorial</title>
 </head>
 <body>
-	<form action="upload" method="post">
+	<form action="upload" method="post" enctype="multipart/form-data">
 		<p>
 			<label for="text">Insert a text:</label><br>
 			<textarea id="text" name="text" rows="20" cols="60"></textarea>
+		</p>
+		<p>
+			<label for="file">Upload a PNG file:</label><br>
+			<input id="file" type="file" name="upload", multiple="multiple">
 		</p>
 		<p>
 			<input type="submit" value="Submit Text">
